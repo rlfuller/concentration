@@ -72,12 +72,12 @@ var fragment = document.createDocumentFragment();
   
       backOfCard.className = "far fa-meh";
       frontOfCard.className = shuffledArray[i];
-      div.addEventListener("mouseenter", function(e){
-        backOfCard.className = "far fa-surprise";
-      });
-      div.addEventListener("mouseleave", function(e){
-        backOfCard.className = "far fa-meh";
-      });
+      // div.addEventListener("mouseenter", function(e){
+      //   backOfCard.className = "far fa-surprise";
+      // });
+      // div.addEventListener("mouseleave", function(e){
+      //   backOfCard.className = "far fa-meh";
+      // });
 
       div.addEventListener("click", function(){
         backOfCard.classList.add("unmatched");
