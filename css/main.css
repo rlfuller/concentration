@@ -3,37 +3,81 @@
     border: 1px solid red !important;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Gloria Hallelujah', cursive;
     /* font-family: 'Acme', sans-serif; */
 }
 
-/* .card {
-    width: 25%;  --- this hsould be commented out
-    flex: 0 1 24%;
-    margin: 3px 0;
-    height: 200px;
-    cursor: pointer;
-
-} */
-
-/* #game-grid {
-    width: 80%;
+#game-grid {
+    width: 75%;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-} */
-
-#game-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 25vw);
-    grid-template-rows: repeat(4, 25vw);
-  grid-gap: 2.5vw;
-  padding: 2.5vw;
-  /* background-color: gray; */
 }
 
-.unmatched {
+.card {
+    /* width: 25%;  --- this hsould be commented out */
+    flex: 0 1 24%;
+    margin: 3px 0;
+    height: 150px;
+    cursor: pointer;
+    text-align: center;
+    padding: 10% 0;
+    font-size: 1.5em;
+
+    border-radius: 15%;
+
+} 
+
+
+
+
+/* #game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(4, 25%);
+    grid-gap: 2.5vw;
+    padding: 2.5vw;
+ 
+  width: 80%;
+  height: 100vh;
+  margin: auto;
+} */
+
+/* .unmatched {
     display: none;
+    cursor: pointer;
+} */
+
+.match {
+    cursor: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+.game-play {
+    width: 75%; 
+    margin: auto;
+}
+
+.rules {
+    text-align: center;
+}
+
+.info {
+    width: 50%;
+    float: left;
+    padding: 5px;
+}
+
+.progress {
+    text-align: right;
 }
