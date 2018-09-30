@@ -56,7 +56,7 @@ i.image-down {
 .match {
     cursor: auto;
     color: red;
-    animation: blinker 1s linear 1s 3;
+    animation: blinker 500ms linear 1000ms 2;
 }
 
 @keyframes blinker {  

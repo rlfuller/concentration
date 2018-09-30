@@ -13,22 +13,21 @@ const matchesAvailable = matches
 
 matchingClasses = matchingClasses.concat(matchingClasses);
 
-let fragment = document.createDocumentFragment();
-
 let firstCard = null;
 let secondCard = null;
 
 let attempts = 0;
 
+let gameGrid = document.getElementById("game-grid");
 
 
 document.addEventListener("DOMContentLoaded", function(){
-  setUpBoard(matchingClasses);
+  setUpBoard(matchingClasses, gameGrid);
 });
 
 document.querySelector(".restart").addEventListener("click", function(){
   console.log('jadkfsjf');
-  setUpBoard(matchingClasses);
+  setUpBoard(matchingClasses, gameGrid);
   console.log('akjdsfj');
 });
 
@@ -153,8 +152,9 @@ function shuffle(array) {
   };
 
 
-  function setUpBoard(arr){
+  function setUpBoard(arr, gameGrid){
     console.log("jfsldfjs    from restart");
+    let fragment = document.createDocumentFragment();
     let shuffledArray = shuffle(arr);
     for (let i = 0; i < arr.length; i++){
       let card = document.createElement("div");
@@ -170,5 +170,8 @@ function shuffle(array) {
       card.appendChild(frontOfCard);
       fragment.appendChild(card);
     }
-    document.querySelector("main").appendChild(fragment);
+    while(gameGrid.childNodes.length){
+      gameGrid.removeChild(gameGrid.childNodes[0]);
+    }
+    gameGrid.appendChild(fragment);
   };
