@@ -91,11 +91,13 @@ function shuffle(array) {
       firstCard = ev.currentTarget;
       //remove event listener so we can't click the same card
       firstCard.removeEventListener("click", clickForMatch);
+      firstCard.classList.toggle("selected");
       //secondCard = null; //we may not need this ......
     } else {
       //this is the second click of two, from here, we can check for match
       console.log("in the else", firstCard);
       secondCard = ev.currentTarget;
+      secondCard.classList.toggle("selected");
 
       let firstClasses = firstCard.querySelector("i").classList;
       let secondClasses = secondCard.querySelector("i").classList;
@@ -109,6 +111,7 @@ function shuffle(array) {
       attempts++;
       evaluateGameProgress(attempts);
 
+
       if (firstCardImg === secondCardImg){
         //this is a match
         match = true;
@@ -119,12 +122,21 @@ function shuffle(array) {
         match = false;
         //not a match, so add back the event listener
         firstCard.addEventListener("click", clickForMatch);
+        
         //call some function to turn cards back over
+        resetCards(firstCard, secondCard);
       }
 
       firstCard = null;
     }
   };
+
+  function resetCards(firstCard, secondCard){
+    setTimeout(function(){
+      firstCard.classList.toggle("selected");
+      secondCard.classList.toggle("selected");
+    }, 500);
+  }
 
   function itsAMatch(firstCard, secondCard){
     firstCard.removeEventListener("click", clickForMatch, false);
