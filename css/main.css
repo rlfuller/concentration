@@ -55,7 +55,13 @@ i.image-down {
 
 .match {
     cursor: auto;
+    color: red;
+    animation: blinker 1s linear 1s 3;
 }
+
+@keyframes blinker {  
+    50% { opacity: 0; }
+  }
 
 h1 {
     text-align: center;
@@ -95,6 +101,3 @@ h1 {
 .progress-better, .progress-best {
     color: black;
 }
-
-
-
