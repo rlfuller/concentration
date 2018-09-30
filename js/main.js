@@ -9,6 +9,7 @@ let matchingClasses = [
   "far fa-sun"
 ];
 let matches = matchingClasses.length; //total number of matches to reach
+const matchesAvailable = matches
 
 matchingClasses = matchingClasses.concat(matchingClasses);
 
@@ -88,6 +89,8 @@ function shuffle(array) {
     if (firstCard === null){
       //we are in the first click of two
       firstCard = ev.currentTarget;
+      //remove event listener so we can't click the same card
+      firstCard.removeEventListener("click", clickForMatch);
       //secondCard = null; //we may not need this ......
     } else {
       //this is the second click of two, from here, we can check for match
@@ -114,6 +117,8 @@ function shuffle(array) {
       } else {
         //this is not a match
         match = false;
+        //not a match, so add back the event listener
+        firstCard.addEventListener("click", clickForMatch);
         //call some function to turn cards back over
       }
 
@@ -135,10 +140,14 @@ function shuffle(array) {
   };
 
   function evaluateGameProgress(attempts){
-    //based on 16 cards that is 8 matches
-    //8 to 11 turns --> good
-    //12 to 14 turns --> okay
-    //> over 14 turns --> poor
+
+    if (attempts > matchesAvailable + (matchesAvailable * .3)){
+      // 2 stars
+      document.querySelector(".progress i:nth-child(3)").className = "far fa-star progress-best";
+    } 
+    if (attempts > matchesAvailable + (matchesAvailable * .6)) {
+      document.querySelector(".progress i:nth-child(2)").className = "far fa-star progress-better";
+    }
   };
   
 
