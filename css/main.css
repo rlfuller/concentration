@@ -27,6 +27,10 @@ body {
     border-radius: 10%;
 }
 
+i.image-down {
+    visibility: hidden;
+}
+
 .unmatched {
     cursor: pointer;
     box-shadow: 5px 5px 20px #555;
@@ -43,7 +47,11 @@ body {
 .selected {
     box-shadow: 2px 2px 5px #333;
     transition: box-shadow 150ms ease-in-out;
+    background: #f6f4ee;
+    transition: background 250ms ease-in-out;
+    cursor: auto;
 }
+
 
 .match {
     cursor: auto;
@@ -67,6 +75,7 @@ h1 {
 
 .info.restart {
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .info {
