@@ -19,6 +19,7 @@ let secondCard = null;
 let attempts = 0;
 
 let gameGrid = document.getElementById("game-grid");
+let progress = document.querySelector(".progress");
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -83,6 +84,7 @@ function shuffle(array) {
       console.log(secondCardImg);
 
       attempts++;
+      progress.textContent = `${attempts} move(s)`;
       evaluateGameProgress(attempts);
 
 
@@ -174,4 +176,11 @@ function shuffle(array) {
       gameGrid.removeChild(gameGrid.childNodes[0]);
     }
     gameGrid.appendChild(fragment);
+    attempts = 0;
+    progress.textContent = `${attempts} moves`;
+    
   };
+
+  function updateProgress(attempts){
+    parentEl = document.querySelector(".progress");
+  }

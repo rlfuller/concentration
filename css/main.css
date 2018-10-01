@@ -55,12 +55,14 @@ i.image-down {
 
 .match {
     cursor: auto;
-    color: red;
-    animation: blinker 500ms linear 1000ms 2;
+    color: green;
+    animation: flash-gold 500ms linear 1ms 1;
 }
 
-@keyframes blinker {  
-    50% { opacity: 0; }
+@keyframes flash-gold {  
+    50% { 
+        background-color: gold;
+    }
   }
 
 h1 {
@@ -79,15 +81,16 @@ h1 {
     margin-bottom: 5px;
 }
 
-.info.restart {
-    padding-left: 20px;
-    cursor: pointer;
+.progress, .restart, .stars {
+    display: inline-block;
+}
+.info {
+    text-align: center;
 }
 
-.info {
-    width: 50%;
-    float: left;
-    padding: 5px;
+.restart {
+    padding-left: 20px;
+    cursor: pointer;
 }
 
 .progress {
