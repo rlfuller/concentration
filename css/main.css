@@ -56,13 +56,15 @@ i.image-down {
 .match {
     cursor: auto;
     color: red;
+    -webkit-animation: flash-gold 500ms linear 1ms 1;
     animation: flash-gold 500ms linear 1ms 1;
 }
 
+@-webkit-keyframes flash-gold {
+    50% { background-color: gold; }
+}
 @keyframes flash-gold {  
-    50% { 
-        background-color: gold;
-    }
+    50% { background-color: gold; }
   }
 
 /* Game header stylings */
@@ -124,6 +126,7 @@ i.far.fa-star {
 }
 #modal.show {
     display: block;
+    transition: display 250ms ease-in-out;
 }
 #modal-inner {
     text-align: center;

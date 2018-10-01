@@ -75,11 +75,10 @@ function shuffle(array) {
 
       let firstClasses = firstCard.querySelector("i").classList;
       let secondClasses = secondCard.querySelector("i").classList;
-      console.log(firstClasses, secondClasses);
 
       let firstCardImg = Array.from(firstClasses).filter((firstClass) => firstClass.startsWith("fa-"))[0];
-      console.log(firstCardImg);
       let secondCardImg = Array.from(secondClasses).filter((secondClass) => secondClass.startsWith("fa-"))[0];
+      console.log(firstCardImg);
       console.log(secondCardImg);
 
       attempts++;
@@ -197,4 +196,28 @@ function shuffle(array) {
     stars.forEach(function(star){
       star.className = "fas fa-star";
     });
-  };      
+  };
+
+  function timer(){
+    let minutes = 0;
+    let seconds = 0;
+    let time = "";
+
+    function addTime() {
+      seconds +=1;
+      if (seconds < 10) {
+        time = `${minutes}:0${seconds}`;
+      } else {
+        time = `${minutes}:${seconds}`;
+      }
+
+      if (seconds > 60){
+        seconds = 0;
+        minutes++;
+      }
+    };
+  };
+
+
+
+  
