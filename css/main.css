@@ -7,6 +7,8 @@ body {
     font-family: 'Gloria Hallelujah', cursive;
 }
 
+/* Game grid stylings */
+
 #game-grid {
     width: 80%;
     margin: auto;
@@ -34,7 +36,6 @@ i.image-down {
 .unmatched {
     cursor: pointer;
     box-shadow: 5px 5px 20px #555;
-
     transition: box-shadow 500ms ease-in-out;
     background-image: url("../images/leaves.png");
 }
@@ -43,7 +44,7 @@ i.image-down {
     background: #eee;
     transition: background 150ms ease-in-out;
 }
-/* need to remove the hover once the cards are down */
+
 .selected {
     box-shadow: 2px 2px 5px #333;
     transition: box-shadow 150ms ease-in-out;
@@ -52,10 +53,9 @@ i.image-down {
     cursor: auto;
 }
 
-
 .match {
     cursor: auto;
-    color: green;
+    color: red;
     animation: flash-gold 500ms linear 1ms 1;
 }
 
@@ -64,6 +64,8 @@ i.image-down {
         background-color: gold;
     }
   }
+
+/* Game header stylings */
 
 h1 {
     text-align: center;
@@ -97,10 +99,59 @@ h1 {
     text-align: right;
 }
 
-.fa-star {
+.fas.fa-star {
     color: gold;
 }
 
-.progress-better, .progress-best {
+i.far.fa-star {
     color: black;
+}
+
+/* Modal stylings */
+
+#modal {
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    /* background-color: black; */
+    background-image: url("../images/leaves.png");
+
+}
+#modal.show {
+    display: block;
+}
+#modal-inner {
+    text-align: center;
+    width: 75%;
+    margin: 10px auto;
+    padding: 10px;
+    position: relative;
+    top: 25vh;
+    box-shadow: 2px 2px 5px #333;
+    background-color: white;
+}
+
+.fa-smile {
+    font-size: 2em;
+    color: green;
+}
+.game-status {
+    margin: 10px;
+    font-size: 1.5em;
+}
+
+.game-status > p {
+    margin: 10px;
+    display: inline-block;
+}
+
+.modal-restart {
+    color: green;
+    cursor: pointer;
+    font-size: 1.5em;
 }

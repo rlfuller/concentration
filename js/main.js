@@ -1,3 +1,5 @@
+//variables
+
 let matchingClasses = [
   "fas fa-apple-alt",
   "fas fa-bomb",
@@ -11,27 +13,28 @@ let matchingClasses = [
 let matches = matchingClasses.length; //total number of matches to reach
 const matchesAvailable = matches
 
+//double the elements so we can have pairs
 matchingClasses = matchingClasses.concat(matchingClasses);
 
 let firstCard = null;
 let secondCard = null;
 
 let attempts = 0;
+let running = false;
 
 let gameGrid = document.getElementById("game-grid");
 let progress = document.querySelector(".progress");
+let modal = document.getElementById("modal");
 
+//events setup
 
 document.addEventListener("DOMContentLoaded", function(){
   setUpBoard(matchingClasses, gameGrid);
 });
 
 document.querySelector(".restart").addEventListener("click", function(){
-  console.log('jadkfsjf');
   setUpBoard(matchingClasses, gameGrid);
-  console.log('akjdsfj');
 });
-
 
 
 //function declarations
@@ -54,23 +57,19 @@ function shuffle(array) {
     }
   
     return array;
-  }
+  };
 
-  
+  //runs every time the user clicks on a card that is not matched already
   function clickForMatch(ev){
-    console.log(ev);
-    let match = false;
+    if (running){ //avoid race condition
+      return;
+    }
     if (firstCard === null){
       firstCard = ev.currentTarget;
-      //remove event listener so we can't click the same card
-      
       showCard(firstCard);
-      //secondCard = null; //we may not need this ......
     } else {
       //this is the second click of two, from here, we can check for match
-      console.log("in the else", firstCard);
       secondCard = ev.currentTarget;
-      // secondCard.classList.toggle("selected");
 
       showCard(secondCard);
 
@@ -84,22 +83,15 @@ function shuffle(array) {
       console.log(secondCardImg);
 
       attempts++;
-      progress.textContent = `${attempts} move(s)`;
+      progress.textContent = `${attempts} move${attempts != 1 ? "s" : ""}`;
       evaluateGameProgress(attempts);
 
 
       if (firstCardImg === secondCardImg){
         //this is a match
-        match = true;
-        //call some function to remove event listeners and do match stuff;
         itsAMatch(firstCard, secondCard);
       } else {
         //this is not a match
-        match = false;
-        //not a match, so add back the event listener
-        // firstCard.addEventListener("click", clickForMatch);
-        
-        //call some function to turn cards back over
         resetCards(firstCard, secondCard);
       }
 
@@ -107,7 +99,12 @@ function shuffle(array) {
     }
   };
 
+  //flip the cards back over as we don't have a match, but do it on a
+  //timeout so the user has enough time to see what the images were
+  //before we hide the cards again. Add back event listeners so they can
+  //be re-clicked
   function resetCards(firstCard, secondCard){
+    running = true;
     setTimeout(function(){
       firstCard.classList.toggle("selected");
       secondCard.classList.toggle("selected");
@@ -116,11 +113,12 @@ function shuffle(array) {
       firstCard.addEventListener("click", clickForMatch);
       secondCard.addEventListener("click", clickForMatch);
       firstCard.querySelector("i").classList.toggle("image-down");
-      console.log("chester is a foo");
       secondCard.querySelector("i").classList.toggle("image-down");
-    }, 750);
+      running = false;
+    }, 500);
   };
 
+  //function to reveal the 'image' on the card
   function showCard(card) {
     card.querySelector("i").classList.toggle("image-down");
     card.removeEventListener("click", clickForMatch);
@@ -128,6 +126,7 @@ function shuffle(array) {
     card.classList.toggle("unmatched");
   };
 
+  //for two cards that match, make sure we can't click again
   function itsAMatch(firstCard, secondCard){
     firstCard.removeEventListener("click", clickForMatch, false);
     secondCard.removeEventListener("click", clickForMatch, false);
@@ -137,30 +136,35 @@ function shuffle(array) {
     matches--;
     if (matches === 0){
       //win
-      //do some winning stuff
+      modal.classList.add("show");
+      modal.querySelector(".modal-restart").addEventListener("click", function(){
+        setUpBoard(matchingClasses, gameGrid);
+      });
+      //set modal progress text
+      modal.querySelector("#final-moves").textContent = `It took you ${attempts} moves to win`;
+      //set modal time
     }
   };
 
 
   function evaluateGameProgress(attempts){
-
+     // 2 stars
     if (attempts > matchesAvailable + (matchesAvailable * .3)){
-      // 2 stars
-      document.querySelector(".progress i:nth-child(3)").className = "far fa-star progress-best";
+      document.querySelector(".stars i:nth-child(3)").className = "far fa-star";
     } 
-    if (attempts > matchesAvailable + (matchesAvailable * .6)) {
-      document.querySelector(".progress i:nth-child(2)").className = "far fa-star progress-better";
+    //1 star
+    if (attempts > matchesAvailable + (matchesAvailable * .8)) {
+      document.querySelector(".stars i:nth-child(2)").className = "far fa-star";
     }
   };
 
-
   function setUpBoard(arr, gameGrid){
-    console.log("jfsldfjs    from restart");
     let fragment = document.createDocumentFragment();
     let shuffledArray = shuffle(arr);
+
+    //create the cards, 1 div for each array element
     for (let i = 0; i < arr.length; i++){
       let card = document.createElement("div");
-      //let backOfCard = document.createElement("i");
       let frontOfCard = document.createElement("i");
       card.className = "card unmatched";
 
@@ -172,15 +176,25 @@ function shuffle(array) {
       card.appendChild(frontOfCard);
       fragment.appendChild(card);
     }
+
+    //if the user has clicked reset or won the game, remove all
+    //game-grid elements so we can start append new
     while(gameGrid.childNodes.length){
       gameGrid.removeChild(gameGrid.childNodes[0]);
     }
     gameGrid.appendChild(fragment);
+
+    //reset the progress and hide the modal
     attempts = 0;
     progress.textContent = `${attempts} moves`;
+    resetProgressStars();
+    modal.classList.remove("show");
     
   };
 
-  function updateProgress(attempts){
-    parentEl = document.querySelector(".progress");
-  }
+  function resetProgressStars(){
+    let stars = document.querySelectorAll(".stars i");
+    stars.forEach(function(star){
+      star.className = "fas fa-star";
+    });
+  };      

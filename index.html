@@ -17,12 +17,23 @@
             <p class="rules">Click tiles to make matches</p>
             <div class="info">
                 <p class="progress">0 moves</p>
-                <p class="stars"><i class="fas fa-star progress-good"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></p>
+                <p class="stars"><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></p>
                 <p class="restart"><i class="fas fa-redo"></i> restart</p>
             </div>
         </div>
     </header>
     <main id="game-grid"></main>
+    <div id="modal">
+        <div id="modal-inner">
+            <h1>You Won Concentration!</h1>
+            <p><i class="far fa-smile"></i></p>
+            <div class="game-status">
+                <p id="final-moves">moves here</p>
+                <p id="final-time">time here</p>
+            </div>
+            <p class="modal-restart"><i class="fas fa-redo"></i> restart</p>
+        </div>
+    </div>
     <script src="js/main.js"></script>
 </body>
 </html>
