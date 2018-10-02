@@ -112,21 +112,21 @@ i.far.fa-star {
 /* Modal stylings */
 
 #modal {
-    display: none;
+    display: block;
     width: 100%;
     height: 100%;
     z-index: 1;
     position: fixed;
     top: 0;
-    left: 0;
+    left: calc(0px - 100vw);
     min-width: 100%;
-    /* background-color: black; */
     background-image: url("../images/leaves.png");
 
 }
 #modal.show {
-    display: block;
-    transition: display 250ms ease-in-out;
+    left: 0px;
+    transform: translate(0,0);
+    transition: all 1s ease-in-out;
 }
 #modal-inner {
     text-align: center;
