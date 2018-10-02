@@ -18,12 +18,18 @@ matchingClasses = matchingClasses.concat(matchingClasses);
 
 let firstCard = null;
 let secondCard = null;
+let timer = null;
 
 let attempts = 0;
 let running = false;
+let timerStarted = false;
+let seconds = 0;
+let minutes = 0;
 
 let gameGrid = document.getElementById("game-grid");
 let progress = document.querySelector(".progress");
+let time = document.querySelector(".time");
+let modalTime = document.getElementById("final-time");
 let modal = document.getElementById("modal");
 
 //events setup
@@ -64,8 +70,14 @@ function clickForMatch(ev){
     return;
   }
   if (firstCard === null){
+    //start the timer if it isn't already running
+    if (timerStarted === false){
+      timer = setInterval(startTimer, 1000);
+    }
+  
     firstCard = ev.currentTarget;
     showCard(firstCard);
+
   } else {
     //this is the second click of two, from here, we can check for match
     secondCard = ev.currentTarget;
@@ -140,13 +152,14 @@ function itsAMatch(firstCard, secondCard){
     });
     //set modal progress text
     modal.querySelector("#final-moves").textContent = `It took you ${attempts} moves to win`;
-    //set modal time
+    //set modal time & stop the timer
+    stopTime();
   }
 };
 
 
 function evaluateGameProgress(attempts){
-    // 2 stars
+  // 2 stars
   if (attempts > matchesAvailable + (matchesAvailable * .3)){
     document.querySelector(".stars i:nth-child(3)").className = "far fa-star";
   } 
@@ -188,6 +201,7 @@ function setUpBoard(arr, gameGrid){
   resetProgressStars();
   modal.classList.remove("show");
   matches = matchesAvailable;
+  stopTime();
   
 };
 
@@ -198,22 +212,23 @@ function resetProgressStars(){
   });
 };
 
-function timer(){
-  let minutes = 0;
-  let seconds = 0;
-  let time = "";
+function startTimer(){
+  timerStarted = true;
+  seconds += 1;
+  if (seconds === 60){
+    minutes += 1; 
+    seconds = 0;
+  }
+  displayTime();
+};
 
-  function addTime() {
-    seconds +=1;
-    if (seconds < 10) {
-      time = `${minutes}:0${seconds}`;
-    } else {
-      time = `${minutes}:${seconds}`;
-    }
+function displayTime(){
+  time.textContent = `${minutes} min ${seconds} sec`;
+};
 
-    if (seconds > 60){
-      seconds = 0;
-      minutes++;
-    }
-  };
+function stopTime(){
+  timerStarted = false;
+  clearInterval(timer);
+  time.textContent = "0 min 0 sec";
+  modalTime.textContent = `It took you ${minutes} minute(s) and ${seconds} seconds`;
 };

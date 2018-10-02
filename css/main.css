@@ -85,11 +85,14 @@ h1 {
     margin-bottom: 5px;
 }
 
-.progress, .restart, .stars {
+.progress, .restart, .stars, .time {
     display: inline-block;
 }
 .info {
     text-align: center;
+}
+.time {
+    margin-left: 10px;
 }
 
 .restart {
