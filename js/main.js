@@ -231,4 +231,6 @@ function stopTime(){
   clearInterval(timer);
   time.textContent = "0 min 0 sec";
   modalTime.textContent = `It took you ${minutes} minute(s) and ${seconds} seconds`;
+  minutes = 0;
+  seconds = 0;
 };
