@@ -121,7 +121,9 @@ i.far.fa-star {
     z-index: 1;
     position: fixed;
     top: 0;
-    left: calc(0px - 100vw);
+    /* left: calc(0px - 100vw); */
+    transform: translate(-100vw);
+    transition: transform 1s ease-in-out;
     min-width: 100%;
     background-image: url("../images/leaves.png");
 
@@ -160,4 +162,14 @@ i.far.fa-star {
     color: green;
     cursor: pointer;
     font-size: 1.5em;
+}
+
+/* mobile */
+@media screen and (max-width: 550px){
+    #modal h1 {
+        font-size: 2em;
+    }
+    .restart {
+        margin: 10px;
+    }
 }

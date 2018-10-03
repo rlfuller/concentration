@@ -31,6 +31,7 @@ let progress = document.querySelector(".progress");
 let time = document.querySelector(".time");
 let modalTime = document.getElementById("final-time");
 let modal = document.getElementById("modal");
+let modalStars = document.getElementById("final-stars");
 
 //events setup
 
@@ -173,6 +174,9 @@ function itsAMatch(firstCard, secondCard){
     modal.querySelector("#final-moves").textContent = `It took you ${attempts} moves to win`;
     //set modal time & stop the timer
     stopTime();
+    //set the modal stars
+
+    modalStars.innerHTML = `You finished with ${document.querySelector(".stars").innerHTML} stars`;
   }
 }
 
