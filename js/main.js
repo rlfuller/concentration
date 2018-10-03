@@ -16,8 +16,7 @@ const matchesAvailable = matchingClasses.length //total number of matches to rea
 //double the elements so we can have pairs
 matchingClasses = matchingClasses.concat(matchingClasses);
 
-let firstCard = null;
-let secondCard = null;
+let firstCard, secondCard;
 let timer = null;
 
 let attempts = 0;
@@ -203,6 +202,7 @@ function evaluateGameProgress(attempts){
 function setUpBoard(arr, gameGrid){
   let fragment = document.createDocumentFragment();
   let shuffledArray = shuffle(arr);
+  firstCard = secondCard = null;
 
   //create the cards, 1 div for each array element
   for (let i = 0; i < arr.length; i++){
