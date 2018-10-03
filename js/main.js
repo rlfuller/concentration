@@ -45,8 +45,12 @@ document.querySelector(".restart").addEventListener("click", function(){
 
 //function declarations
 
-//Fisher–Yates shuffle
-//https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+/**
+ * @description Fisher–Yates shuffle
+ * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ * @param {array} array to be shuffled
+ * @returns {array} a shuffled array
+ */
 function shuffle(array) {
   var m = array.length, t, i;
 
@@ -62,9 +66,13 @@ function shuffle(array) {
   }
   
   return array;
-};
+}
 
-//runs every time the user clicks on a card that is not matched already
+/**
+ * @description runs every time the user clicks on a card, main function 
+ * that determines if there is a match or not and flips the cards
+ * @param {object} ev 
+ */
 function clickForMatch(ev){
   if (running){ //avoid race condition
     return;
@@ -107,12 +115,15 @@ function clickForMatch(ev){
 
     firstCard = null;
   }
-};
+}
 
-//flip the cards back over as we don't have a match, but do it on a
-//timeout so the user has enough time to see what the images were
-//before we hide the cards again. Add back event listeners so they can
-//be re-clicked
+/**
+ * @description Flips the cards back over if there is no match, 
+ * but it does it on a delay so the user has enough time to view the 
+ * second card before the pair is turned over
+ * @param {object} firstCard; this is a web element representing the first clicked card
+ * @param {object} secondCard; this is a web element representing the second clicked card
+ */
 function resetCards(firstCard, secondCard){
   running = true;
   setTimeout(function(){
@@ -126,17 +137,25 @@ function resetCards(firstCard, secondCard){
     secondCard.querySelector("i").classList.toggle("image-down");
     running = false;
   }, 750);
-};
+}
 
-//function to reveal the 'image' on the card
+/**
+ * @description Reveals the 'image' on a card
+ * @param {object} card
+ */
 function showCard(card) {
   card.querySelector("i").classList.toggle("image-down");
   card.removeEventListener("click", clickForMatch);
   card.classList.toggle("selected");
   card.classList.toggle("unmatched");
-};
+}
 
-//for two cards that match, make sure we can't click again
+/**
+ * @description Helper function to make sure that cards that are selected
+ * cannot be clicked again unless the are not a match
+ * @param {object} firstCard 
+ * @param {object} secondCard 
+ */
 function itsAMatch(firstCard, secondCard){
   firstCard.removeEventListener("click", clickForMatch, false);
   secondCard.removeEventListener("click", clickForMatch, false);
@@ -155,9 +174,12 @@ function itsAMatch(firstCard, secondCard){
     //set modal time & stop the timer
     stopTime();
   }
-};
+}
 
-
+/**
+ * @description evaluates the game progress, sets the rating stars
+ * @param {number} attempts 
+ */
 function evaluateGameProgress(attempts){
   // 2 stars
   if (attempts > matchesAvailable + (matchesAvailable * .3)){
@@ -167,8 +189,13 @@ function evaluateGameProgress(attempts){
   if (attempts > matchesAvailable + (matchesAvailable * .8)) {
     document.querySelector(".stars i:nth-child(2)").className = "far fa-star";
   }
-};
+}
 
+/**
+ * @description Setups up the board, shuffles and deals the cards
+ * @param {array} arr 
+ * @param {object} gameGrid 
+ */
 function setUpBoard(arr, gameGrid){
   let fragment = document.createDocumentFragment();
   let shuffledArray = shuffle(arr);
@@ -202,16 +229,21 @@ function setUpBoard(arr, gameGrid){
   modal.classList.remove("show");
   matches = matchesAvailable;
   stopTime();
-  
-};
+}
 
+/**
+ * @description resets the progress stars back to an original state
+ */
 function resetProgressStars(){
   let stars = document.querySelectorAll(".stars i");
   stars.forEach(function(star){
     star.className = "fas fa-star";
   });
-};
+}
 
+/**
+ * @description starts a timer function when the first card is clicked
+ */
 function startTimer(){
   timerStarted = true;
   seconds += 1;
@@ -220,12 +252,18 @@ function startTimer(){
     seconds = 0;
   }
   displayTime();
-};
+}
 
+/**
+ * @description displays the time on the main page
+ */
 function displayTime(){
   time.textContent = `${minutes} min ${seconds} sec`;
-};
+}
 
+/**
+ * @description stops the timer
+ */
 function stopTime(){
   timerStarted = false;
   clearInterval(timer);
@@ -233,4 +271,4 @@ function stopTime(){
   modalTime.textContent = `It took you ${minutes} minute(s) and ${seconds} seconds`;
   minutes = 0;
   seconds = 0;
-};
+}
